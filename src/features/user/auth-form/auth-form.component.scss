@@ -1,0 +1,9 @@
+:host {
+  height: min-content;
+  width: 50vw;
+
+  .mat-mdc-card-content form {
+    display: flex;
+    flex-direction: column;
+  }
+}

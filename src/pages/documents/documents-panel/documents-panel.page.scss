@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-inline: 1.5rem;
+
+  .filter-panel {
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    mat-icon {
+      cursor: pointer;
+    }
+  }
+
+  app-documents-table {
+    flex-grow: 1;
+    padding-bottom: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}

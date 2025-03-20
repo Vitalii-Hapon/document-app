@@ -1,0 +1,52 @@
+<div class="table-container">
+  <table
+    (matSortChange)="sortChange($event)"
+    [matSortActive]="sortActive()"
+    [matSortDirection]="sortDirection()"
+    aria-label="Elements"
+    class="full-width-table"
+    mat-table
+    matSort
+  >
+    @for (column of columns; track column) {
+
+      <ng-container [matColumnDef]="column.columnDef">
+
+        <th mat-header-cell *matHeaderCellDef
+            [mat-sort-header]="column.hasSorting ? column.columnDef : ''"
+            [disabled]="!column.hasSorting"
+        >{{ column.name }}
+        </th>
+        <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
+      </ng-container>
+    }
+    <ng-container matColumnDef="preview">
+      <th *matHeaderCellDef mat-header-cell></th>
+      <td *matCellDef="let doc" class="icon-cell" mat-cell>
+        <button (click)="previewDocument($event, doc.id)" mat-icon-button matTooltip="Review and Edit document">
+          <mat-icon
+            class="table-icon-button"
+          >visibility
+          </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+    <tr (click)="previewDocument($event, row.id)"
+        *matRowDef="let row;
+        columns: displayedColumns;"
+        mat-row
+    ></tr>
+  </table>
+</div>
+<div class="paginator-container">
+  <mat-paginator (page)="pageChange($event)"
+                 [length]="count()"
+                 [pageIndex]="paginationData().pageIndex"
+                 [pageSizeOptions]="pageSizeOption"
+                 [pageSize]="paginationData().pageSize"
+                 [showFirstLastButtons]="true"
+                 aria-label="Select page">
+  </mat-paginator>
+</div>

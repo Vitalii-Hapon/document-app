@@ -1,0 +1,49 @@
+<div class="filter-panel">
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select [formControl]="statusControl">
+      @for (status of statusOptions; track status.viewValue) {
+        <mat-option [value]="status.value">{{ status.viewValue }}</mat-option>
+      }
+    </mat-select>
+    @if (statusControl.value) {
+      <mat-icon
+        matIconSuffix
+        (click)="clear($event, statusControl)"
+      >
+        clear
+      </mat-icon>
+    }
+  </mat-form-field>
+
+  @if (isReviewer) {
+    <mat-form-field>
+      <mat-label>Creator</mat-label>
+      <input matInput type="text" [formControl]="creatorEmailControl" [placeholder]="'search by creator email'">
+      @if (creatorEmailControl.value) {
+        <mat-icon
+          matIconSuffix
+          (click)="clear($event, creatorEmailControl)"
+        >
+          clear
+        </mat-icon>
+      }
+    </mat-form-field>
+
+    <button mat-flat-button (click)="applyFilter()">Filter</button>
+  } @else {
+    <button mat-flat-button (click)="addDocument()">Add document</button>
+  }
+</div>
+
+<app-documents-table
+  (previewClick)="openDoc($event)"
+  [(paginationData)]="paginationData"
+  [(sortData)]="sortData"
+  [columns]="columns"
+  [count]="documentTableData().count"
+  [displayedColumns]="displayedColumns"
+  [documents]="documentTableData().results"
+  [pageSizeOption]="[10, 20, 50]"
+>
+</app-documents-table>

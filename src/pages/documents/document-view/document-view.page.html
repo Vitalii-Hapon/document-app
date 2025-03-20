@@ -1,0 +1,18 @@
+<app-document-view-toolbar
+  [isReviewer]="isReviewer"
+  [document]="document()!"
+  [isNameChanged]="isNameChanged"
+  [isActionAllowed]="isActionAllowed.bind(this)"
+  [documentNameControl]="documentNameControl"
+  (back)="back()"
+  (revertNameChanges)="revertNameChanges()"
+  (updateName)="updateName()"
+  (sendToReview)="sendToReview()"
+  (revoke)="revoke()"
+  (delete)="delete()"
+  (changeStatus)="changeStatus($event)"
+></app-document-view-toolbar>
+
+<div class="pdf-viewer">
+  <div id="nutrient-container"></div>
+</div>

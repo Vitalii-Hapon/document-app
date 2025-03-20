@@ -1,0 +1,54 @@
+<mat-toolbar class="toolbar">
+  <button (click)="back()" mat-icon-button
+          matTooltip="Back to the documents table">
+    <mat-icon>
+      arrow_back_ios_new
+    </mat-icon>
+  </button>
+
+  <span>Name:</span>
+
+  <mat-form-field>
+    <input [formControl]="nameControl" matInput type="text">
+    @if (nameControl.value) {
+      <mat-icon
+        matIconSuffix
+        (click)="nameControl.reset()"
+        matTooltip="Revert document name change">
+        clear
+      </mat-icon>
+    }
+  </mat-form-field>
+</mat-toolbar>
+
+<div>
+  <file-uploader
+    [acceptedTypes]="['.pdf']"
+    (onFile)="uploadFile($event)"
+  ></file-uploader>
+</div>
+
+<mat-toolbar>
+  @if (fileControl.value?.[0]) {
+    <mat-toolbar-row>
+      <div>File <span>{{fileControl.value![0].name}}</span> is uploaded</div>
+    </mat-toolbar-row>
+  }
+  <mat-toolbar-row>
+    <button
+      mat-flat-button
+      (click)="save(DocumentStatus.Draft)"
+      [disabled]="!isFormValid"
+    >
+      Save to Draft
+    </button>
+
+    <button
+      mat-flat-button
+      (click)="save(DocumentStatus.ReadyForReview)"
+      [disabled]="!isFormValid"
+    >
+      Send to Review
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

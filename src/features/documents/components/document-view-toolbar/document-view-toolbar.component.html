@@ -1,0 +1,92 @@
+<mat-toolbar class="toolbar">
+  <button (click)="back.emit()" mat-icon-button
+          matTooltip="Back to the documents table">
+    <mat-icon>
+      arrow_back_ios_new
+    </mat-icon>
+  </button>
+
+  <span>Name:</span>
+
+  @if (isReviewer()) {
+    <span>{{ document().name }}</span>
+  } @else {
+    <mat-form-field>
+      <input [formControl]="documentNameControl" matInput type="text">
+      @if (isNameChanged()) {
+        <mat-icon
+          matIconSuffix
+          class="select-clear-button"
+          (click)="$event.stopPropagation(); revertNameChanges.emit()"
+          matTooltip="Revert document name change">
+          clear
+        </mat-icon>
+      }
+    </mat-form-field>
+  }
+
+  <span>Status:</span>
+  <span>{{ document()!.status!.replaceAll('_', ' ') }}</span>
+
+  @if (isActionAllowed(documentAction.Save)) {
+    <button (click)="updateName.emit()" [disabled]="!isNameChanged() || !documentNameControl.value" mat-icon-button
+            matTooltip="Save new document name">
+      <mat-icon>
+        save
+      </mat-icon>
+    </button>
+  }
+
+  @if (isActionAllowed(documentAction.SendToReview)) {
+    <button
+      (click)="sendToReview.emit()"
+      mat-icon-button
+      matTooltip="Send to Review">
+      <mat-icon>
+        ios_share
+      </mat-icon>
+    </button>
+  }
+
+  @if (isActionAllowed(documentAction.Revoke)) {
+    <button (click)="revoke.emit()" mat-icon-button
+            matTooltip="Revoke the document">
+      <mat-icon>
+        undo
+      </mat-icon>
+    </button>
+  }
+
+  @if (isActionAllowed(documentAction.Review)) {
+    <button (click)="changeStatus.emit(documentAction.Review)" mat-icon-button
+            matTooltip="Move the document to the under review stage">
+      <mat-icon>
+        content_paste_search
+      </mat-icon>
+    </button>
+  }
+  @if (isActionAllowed(documentAction.Decline)) {
+    <button (click)="changeStatus.emit(documentAction.Decline)" mat-icon-button
+            matTooltip="Decline the document">
+      <mat-icon>
+        cancel
+      </mat-icon>
+    </button>
+  }
+  @if (isActionAllowed(documentAction.Approve)) {
+    <button (click)="changeStatus.emit(documentAction.Approve)" mat-icon-button
+            matTooltip="Approve the document">
+      <mat-icon>
+        verified
+      </mat-icon>
+    </button>
+  }
+  @if (isActionAllowed(documentAction.Delete)) {
+    <button (click)="delete.emit()" mat-icon-button
+            matTooltip="Delete the document">
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
+  }
+</mat-toolbar>

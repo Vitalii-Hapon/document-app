@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: mat.$violet-palette,
+    typography: Roboto,
+    density: 0
+  ));
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    flex-grow: 1;
+    background-color: var(--mat-sys-background);
+  }
+
+  app-document-view .mat-mdc-form-field-bottom-align,
+  app-documents-panel .mat-mdc-form-field-bottom-align,
+  app-document-creat .mat-mdc-form-field-bottom-align {
+    display: none;
+  }
+}
+
+

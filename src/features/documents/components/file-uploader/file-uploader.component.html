@@ -1,0 +1,34 @@
+<div class="file-uploader-wrapper">
+  <div class="file-uploader-body-wrapper">
+    <ngx-file-drop
+      (onFileDrop)="onDropFile($event)"
+      accept="{{ acceptedTypes?.join(', ') || '' }}"
+      [multiple]="multiple"
+    >
+      <ng-template
+        ngx-file-drop-content-tmp
+        let-openFileSelector="openFileSelector"
+      >
+        <div class="file-uploader">
+          <mat-icon>upload</mat-icon>
+          <span *ngIf="!!text">{{ text }}</span>
+          <input
+            #fileUpload
+            (change)="onUploadFile($event)"
+            type="file"
+            accept="{{ acceptedTypes?.join(', ') || '' }}"
+            [multiple]="multiple"
+            hidden
+          />
+
+          <button
+            mat-stroked-button
+            (click)="onBrowse()"
+          >
+            browse
+          </button>
+        </div>
+      </ng-template>
+    </ngx-file-drop>
+  </div>
+</div>

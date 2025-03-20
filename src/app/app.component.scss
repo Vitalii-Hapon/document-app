@@ -1,0 +1,19 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: block;
+  background: var(--mat-sys-background);
+  color: var(--mat-color-primary);
+
+  mat-spinner {
+    $spinnerSize: 150px;
+    width: $spinnerSize !important;
+    height: $spinnerSize !important;
+    position: absolute;
+    inset: calc(50% - $spinnerSize / 2);
+  }
+}
+
+::ng-deep router-outlet.disabled + * {
+  opacity: 0.25;
+}
